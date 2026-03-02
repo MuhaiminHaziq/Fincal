@@ -1,121 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/auth_provider.dart';
+import 'providers/history_provider.dart';
+import 'screens/login_screen.dart';
+import 'screens/signup_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/edit_profile_screen.dart';
+import 'screens/history_screen.dart';
+import 'screens/trading_account_screen.dart';
+import 'screens/trading_account_result_screen.dart';
+import 'screens/profit_loss_screen.dart';
+import 'screens/profit_loss_result_screen.dart';
+import 'screens/financial_position_screen.dart';
+import 'screens/financial_position_result_screen.dart';
+import 'screens/business_accounting_screen.dart';
+import 'screens/business_accounting_result_screen.dart';
+import 'screens/report_analysis_screen.dart';
+import 'screens/about_us_screen.dart';
+import 'screens/help_screen.dart';
+import 'screens/user_manual_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AccountingCalculatorApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo Testing new code',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class AccountingCalculatorApp extends StatelessWidget {
+  const AccountingCalculatorApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => HistoryProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Accounting Calculator',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: MaterialColor(0xFF8B5A84, {
+            50: const Color(0xFFF3E5F5),
+            100: const Color(0xFFE1BEE7),
+            200: const Color(0xFFCE93D8),
+            300: const Color(0xFFBA68C8),
+            400: const Color(0xFFAB47BC),
+            500: const Color(0xFF8B5A84),
+            600: const Color(0xFF8E24AA),
+            700: const Color(0xFF7B1FA2),
+            800: const Color(0xFF6A1B9A),
+            900: const Color(0xFF4A148C),
+          }),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8B5A84)),
+          useMaterial3: true,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 1,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF8B5A84),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
-          ],
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: const Color(0xFF8B5A84),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        home: Consumer<AuthProvider>(
+          builder: (context, authProvider, child) {
+            if (authProvider.isAuthenticated) {
+              return const DashboardScreen();
+            }
+            return const LoginScreen();
+          },
+        ),
+        routes: {
+          '/login': (context) => const LoginScreen(),
+          '/signup': (context) => const SignUpScreen(),
+          '/dashboard': (context) => const DashboardScreen(),
+          '/edit-profile': (context) => const EditProfileScreen(),
+          '/history': (context) => const HistoryScreen(),
+          '/trading-account': (context) => const TradingAccountScreen(),
+          '/trading-account-result': (context) =>
+              const TradingAccountResultScreen(),
+          '/profit-loss': (context) => const ProfitLossScreen(),
+          '/profit-loss-result': (context) => const ProfitLossResultScreen(),
+          '/financial-position': (context) => const FinancialPositionScreen(),
+          '/financial-position-result': (context) =>
+              const FinancialPositionResultScreen(),
+          '/business-accounting': (context) => const BusinessAccountingScreen(),
+          '/business-accounting-result': (context) =>
+              const BusinessAccountingResultScreen(),
+          '/report-analysis': (context) => const ReportAnalysisScreen(),
+          '/about-us': (context) => const AboutUsScreen(),
+          '/help': (context) => const HelpScreen(),
+          '/user-manual': (context) => const UserManualScreen(),
+        },
       ),
     );
   }
