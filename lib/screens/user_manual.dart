@@ -592,6 +592,7 @@ Explore advanced features and tips for power users.
           ),
         ],
       ),
+    )
     );
   }
 }
